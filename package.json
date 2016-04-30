@@ -1,0 +1,36 @@
+{
+  "name": "conformist",
+  "version": "0.0.1",
+  "description": "A mostly functional [sic] JSON schema validator",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "lint": "standard lib/*.js test/*.js",
+    "test": "npm run lint && tape test/*.js | tap-dot",
+    "test:spec": "tape test/*.js | tap-spec",
+    "test:watch": "onchange 'lib/**/*.js' 'test/**/*.js' -- npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tvjg/conformist"
+  },
+  "author": "John Guidry <lowdowndirtyrottenscoundrel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tvjg/conformist/issues"
+  },
+  "homepage": "https://github.com/tvjg/conformist",
+  "devDependencies": {
+    "onchange": "^2.4.0",
+    "standard": "^6.0.8",
+    "tap-dot": "^1.0.0",
+    "tap-spec": "^3.0.0",
+    "tape": "^4.0.0",
+    "tape-catch": "^1.0.4"
+  },
+  "dependencies": {
+    "folktale": "^1.0.0-SNAPSHOT",
+    "ramda": "^0.21.0"
+  }
+}
