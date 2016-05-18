@@ -21,7 +21,7 @@ This module is still under conceptual development.
 ## Example
 
 ``` js
-var Environment = require('conformist')
+var Conformist = require('conformist')
 
 var env = Conformist()
 var validate = env.compile({ type: 'string' })
