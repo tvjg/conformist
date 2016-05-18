@@ -1,5 +1,6 @@
 # Conformist
 
+[![travis-ci](https://travis-ci.org/tvjg/conformist.svg?branch=master)](http://travis-ci.org/tvjg/conformist)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 A mostly functional [sic] JSON schema validator
