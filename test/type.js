@@ -41,6 +41,29 @@ test('types', function (context) {
     t.end()
   })
 
+  context.test('number', function (t) {
+    let schema, validate, _
+
+    schema = { 'type': 'number' }
+    validate = env.compile(schema)
+
+    t.plan(4)
+
+    _ = validate(null)
+    t.equal(_.isFailure, true)
+
+    _ = validate([])
+    t.equal(_.isFailure, true)
+
+    _ = validate(1)
+    t.equal(_.isSuccess, true)
+
+    _ = validate(Math.PI)
+    t.equal(_.isSuccess, true)
+
+    t.end()
+  })
+
   context.test('object', function (t) {
     let validate, _
 
