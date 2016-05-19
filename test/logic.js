@@ -63,4 +63,29 @@ test('logic', function (context) {
 
     t.end()
   })
+
+  context.test('allOf', function (t) {
+    let schema, validate, _
+
+    schema = {
+      allOf: [
+        { type: 'integer', minimum: 1 },
+        { type: 'integer', maximum: 1 }
+      ]
+    }
+    validate = env.compile(schema)
+
+    t.plan(3)
+
+    _ = validate(1)
+    t.equal(_.isSuccess, true)
+
+    _ = validate(0)
+    t.equal(_.isSuccess, false)
+
+    _ = validate(2)
+    t.equal(_.isSuccess, false)
+
+    t.end()
+  })
 })
