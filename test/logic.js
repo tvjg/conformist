@@ -35,4 +35,32 @@ test('logic', function (context) {
 
     t.end()
   })
+
+  context.test('anyOf', function (t) {
+    let schema, validate, _
+
+    schema = {
+      anyOf: [
+        { type: 'string' },
+        { type: 'boolean' }
+      ]
+    }
+    validate = env.compile(schema)
+
+    t.plan(4)
+
+    _ = validate('a42')
+    t.equal(_.isSuccess, true)
+
+    _ = validate(true)
+    t.equal(_.isSuccess, true)
+
+    _ = validate(1.0)
+    t.equal(_.isSuccess, false)
+
+    _ = validate(null)
+    t.equal(_.isSuccess, false)
+
+    t.end()
+  })
 })
