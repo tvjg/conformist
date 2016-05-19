@@ -88,4 +88,29 @@ test('logic', function (context) {
 
     t.end()
   })
+
+  context.test('oneOf', function (t) {
+    let schema, validate, _
+
+    schema = {
+      oneOf: [
+        { type: 'integer', minimum: 2 },
+        { type: 'integer', minimum: 4 }
+      ]
+    }
+    validate = env.compile(schema)
+
+    t.plan(3)
+
+    _ = validate(3)
+    t.equal(_.isSuccess, true)
+
+    _ = validate(4)
+    t.equal(_.isSuccess, false)
+
+    _ = validate(0)
+    t.equal(_.isSuccess, false)
+
+    t.end()
+  })
 })
