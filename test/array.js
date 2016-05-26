@@ -1,7 +1,82 @@
 const test = require('tape-catch')
 const env = require('../index.js')()
+const pp = require('util').inspect
 
 test('array-specific validations', function (context) {
+  const itemsWithSingleSchema = { 'items': { type: 'integer' } }
+
+  context.test(pp(itemsWithSingleSchema), function (t) {
+    let validate, instance, _
+    validate = env.compile(itemsWithSingleSchema)
+
+    t.plan(6)
+
+    instance = null
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = 2
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, 2, 3]
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = []
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = ['string']
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    instance = [2, false]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    t.end()
+  })
+
+  const itemsWithMultipleSchema = { 'items': [{ type: 'integer' }, {}] }
+
+  context.test(pp(itemsWithMultipleSchema), function (t) {
+    let validate, instance, _
+    validate = env.compile(itemsWithMultipleSchema)
+
+    t.plan(7)
+
+    instance = null
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, 2, 3]
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, false]
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = ['string']
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    instance = [2.1, 2]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    instance = [1]
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = []
+    _ = validate([])
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    t.end()
+  })
+
   context.test('minItems', function (t) {
     let schema, validate, _
 
