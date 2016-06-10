@@ -77,6 +77,60 @@ test('array-specific validations', function (context) {
     t.end()
   })
 
+  const itemsWithAdditionalItems = { 'items': [{ type: 'integer' }, {}], 'additionalItems': false }
+
+  context.test(pp(itemsWithAdditionalItems), function (t) {
+    let validate, instance, _
+    validate = env.compile(itemsWithAdditionalItems)
+
+    t.plan(4)
+
+    instance = null
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, false]
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, false, 2]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    instance = [1, false, 2, 3, null]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    t.end()
+  })
+
+  const itemsWithAdditionalItemsSchema = { 'items': [{ type: 'integer' }], 'additionalItems': { type: 'string' } }
+
+  context.test(pp(itemsWithAdditionalItemsSchema), function (t) {
+    let validate, instance, _
+    validate = env.compile(itemsWithAdditionalItemsSchema)
+
+    t.plan(4)
+
+    instance = 5.5
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, 'string', '$']
+    _ = validate(instance)
+    t.ok(_.isSuccess, 'should succeed for ' + pp(instance))
+
+    instance = [1, false]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    instance = [1, 'string', 3]
+    _ = validate(instance)
+    t.notOk(_.isSuccess, 'should fail for ' + pp(instance))
+
+    t.end()
+  })
+
   context.test('minItems', function (t) {
     let schema, validate, _
 
