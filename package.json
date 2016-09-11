@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "folktale": "^1.0.0-SNAPSHOT",
+    "json-refs": "^2.1.6",
     "lodash.isplainobject": "^4.0.4",
     "ramda": "^0.21.0"
   }
