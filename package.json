@@ -7,8 +7,8 @@
   },
   "scripts": {
     "lint": "standard lib/*.js test/*.js",
-    "test": "npm run lint && tape test/*.js | tap-dot",
-    "test:spec": "tape test/*.js | tap-spec",
+    "test": "npm run lint && tape test/*.js test/**/*.js | tap-dot",
+    "test:spec": "tape test/*.js test/**/*.js| tap-spec",
     "test:watch": "onchange 'lib/**/*.js' 'test/**/*.js' -- npm test"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "tape-catch": "^1.0.4"
   },
   "dependencies": {
+    "daggy": "0.0.1",
     "folktale": "^1.0.0-SNAPSHOT",
     "json-refs": "^2.1.6",
     "lodash.isplainobject": "^4.0.4",
