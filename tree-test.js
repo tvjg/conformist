@@ -15,6 +15,7 @@ const isParent = [
   'anyOf'
 ]
 
+const {Tree} = require('./lib/data/tree')
 const {compose, concat} = R
 const {pick, keys} = R
 const {lensPath, view} = R
@@ -39,8 +40,13 @@ let schema = {
 }
 
 let t2 = unfoldTreeM(Reader, spoolJsonSchema, []).run({ schema })
+//      1
+//    /   \
+//   2     3
+let T = Tree.Node(1, [Tree.Node(2, []), Tree.Node(3, [])])
 
-print(t2)
+// Sum the labels
+print(T.foldr(x => acc => acc + x, 0))
 
-// Verify we have a proper Tree type
-print(t2.map(JsonRefs.pathFromPtr))
+// Build a list of the labels
+print(T.foldr(x => acc => acc.concat(x), []))
